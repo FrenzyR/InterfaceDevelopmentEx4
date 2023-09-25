@@ -1,6 +1,7 @@
 ﻿namespace Placeholder;
     class Exercise4
 {
+    static Random randomNumber = new Random();
     public static void Main()
     {
         Console.WriteLine("Hay tres juegos aquí, escoge" +
@@ -18,7 +19,9 @@
             switch (givenNumber)
             {
                 case 1:
+                    
                     diceGame();
+                    
                     if (givenNumber == 4)
                     {
                         Console.WriteLine("case 1");
@@ -26,6 +29,7 @@
                     }
                     break;
                 case 2:
+                    TheHundredNumbersRandomGame();
                     if (givenNumber == 4)
                     {
                         Console.WriteLine("case 2");
@@ -33,6 +37,7 @@
                     }
                     break;
                 case 3:
+
                     if (givenNumber == 4)
                     {
                         Console.WriteLine("case 3");
@@ -55,27 +60,89 @@
         
     }
 
+    private static void TheHundredNumbersRandomGame()
+    {
+        int attempts = 5;
+        int randomNumberFromOneToAHundred = randomNumber.Next(0, 100);
+        for (global::System.Int32 i = 0; i < attempts; i++)
+        {
+            
+            
+            Console.WriteLine($"Give me a number from 1 to 100, you've {attempts - i} attempts");
+            int givenNumber = Convert.ToInt32(Console.ReadLine());
+            if (givenNumber > 100 || givenNumber <= 0)
+            {
+                Console.WriteLine("GIVEN NUMBER OUT OF BOUNDS"); //i am fully aware the way this code is structured is awful please bare with me
+            }
+            else if (randomNumberFromOneToAHundred == givenNumber)
+            {
+                Console.WriteLine("CORRECT");
+                i = 4;
+            }
+            else if (randomNumberFromOneToAHundred < givenNumber)
+            {
+                Console.WriteLine("GIVEN NUMBER IS TOO BIG");
+
+            }
+            else if (randomNumberFromOneToAHundred > givenNumber)
+            {
+                Console.WriteLine("GIVEN NUMBER IS TOO SMALL");
+            }
+
+        }
+    }
+
     private static void diceGame()
     {
+        int winCount = 0;
         Console.WriteLine("How many faces do you want this dice to have?");
-        int[] diceFaces = new int[Convert.ToInt32(Console.ReadLine())];
-        for (global::System.Int32 i = 0; i < diceFaces.Length; i++)
+        int[] diceFaces = new int[0];
+        do
+        {
+            try
+            {
+                diceFaces = new int[Convert.ToInt32(Console.ReadLine())];
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine("Unacceptable input, give me another one");
+            }
+        } while (diceFaces.Length == 0);
+        
+        for (int i = 0; i < diceFaces.Length; i++)
         {
             diceFaces[i] = i;
         }
-        Random randomNumber = new Random();
+        
         for (global::System.Int32 i = 0; i < 10; i++)
         {
             Console.WriteLine($"Ok, now guess which face it landed on from the {diceFaces.Length} faces");
-            if (randomNumber.Next(0, diceFaces.Length) == Convert.ToInt32(Console.ReadLine()))
+
+           
+                int givenNumber = Convert.ToInt32(Console.ReadLine());
+             
+
+            if (givenNumber <= 0 || givenNumber > diceFaces.Length)
             {
-                Console.WriteLine($"You got this one right, you've got {10 - i} attempts left");
+                i--;
+                Console.WriteLine($"That's not even within the right parameters dude, I'll let this one slide, you've got {10 - (i + 1)} attempts left");
             }
-            else
+            if (givenNumber >= 1 && givenNumber <= diceFaces.Length)
             {
-                Console.WriteLine($"Whoops, you've got {10 - i} attempts left");
+                if (randomNumber.Next(1, diceFaces.Length+1) == givenNumber)
+                {
+                    Console.WriteLine($"You got this one right, you've got {10 - (i+1)} attempts left");
+                    winCount++;
+                }
+
+                else
+                {
+                    Console.WriteLine($"Whoops, you've got {10 - (i + 1)} attempts left");
+                }
             }
+            
         }
+        Console.WriteLine($"You've got the right number {winCount} times");
     }
 }
 
