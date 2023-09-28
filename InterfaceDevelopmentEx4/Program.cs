@@ -37,7 +37,12 @@
                     }
                     break;
                 case 3:
-
+                    int quiniela = 15;
+                    for (int i = 0; i < quiniela; i++)
+                    {
+                        Console.WriteLine(PonderedNumber());
+                    }
+                    
                     if (givenNumber == 4)
                     {
                         Console.WriteLine("case 3");
@@ -49,8 +54,7 @@
                     goto case 1;                    
                 case 5:                    
                     break;
-                case -1:
-                    break;
+
                 default:
                     break;
 
@@ -58,6 +62,23 @@
             Console.WriteLine("The current number is: " + givenNumber);
         } 
         
+    }
+
+    private static String PonderedNumber()
+    {
+        int ponderedNumber = randomNumber.Next(101);
+        switch (ponderedNumber)
+        {
+            case > 0 and < 60:
+                return "1";
+                
+            case > 61 and < 85:
+                return "X";
+                
+            case > 86 and < 100:
+                return "2";
+        }
+        return "";
     }
 
     private static void TheHundredNumbersRandomGame()
