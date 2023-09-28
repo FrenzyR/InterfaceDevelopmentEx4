@@ -124,7 +124,7 @@
             {
                 diceFaces = new int[Convert.ToInt32(Console.ReadLine())];
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
                 Console.WriteLine("Unacceptable input, give me another one");
             }
