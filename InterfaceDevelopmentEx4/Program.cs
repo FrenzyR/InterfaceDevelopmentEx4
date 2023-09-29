@@ -1,7 +1,7 @@
 ﻿namespace Placeholder;
     class Exercise4
 {
-    static Random randomNumber = new Random();
+    static Random randomNumber = new Random();   // Posibilidad de repetir cada juego tras acabarlo, Quini indicando nº de partido y bien alineado en columa
     public static void Main()
     {
         Console.WriteLine("Hay tres juegos aquí, escoge" +
@@ -14,6 +14,12 @@
         
         while (givenNumber >= -1 && givenNumber <= 5)
         {
+            Console.WriteLine("There's three games here, choose" +
+            "\n1) Play guyessing the numbers of a dice" +
+            "\n2) Guess a random number from 1 to 100" +
+            "\n3) Whatever this is lol (quiniela)" +
+            "\n4) Play every one of them in order" +
+            "\n5) Leave");
             Console.WriteLine("Give me a number");
             givenNumber = Convert.ToInt32(Console.ReadLine());
             switch (givenNumber)
@@ -21,7 +27,11 @@
                 case 1:
                     
                     diceGame();
-                    
+                    Console.WriteLine("Do you wish to play the game again? y/n");
+                    if (Console.ReadLine() == "y")
+                    {
+                        goto case 1;
+                    }
                     if (givenNumber == 4)
                     {
                         Console.WriteLine("case 1");
@@ -30,6 +40,11 @@
                     break;
                 case 2:
                     TheHundredNumbersRandomGame();
+                    Console.WriteLine("Do you wish to play the game again? y/n");
+                    if (Console.ReadLine() == "y")
+                    {
+                        goto case 2;
+                    }
                     if (givenNumber == 4)
                     {
                         Console.WriteLine("case 2");
@@ -42,7 +57,12 @@
                     {
                         Console.WriteLine(PonderedNumber());
                     }
-                    
+                    Console.WriteLine("Do you wish to play the game again? y/n");
+                    if (Console.ReadLine() == "y")
+                    {
+                        goto case 3;
+                    }
+
                     if (givenNumber == 4)
                     {
                         Console.WriteLine("case 3");
@@ -56,6 +76,11 @@
                     break;
 
                 default:
+                    while (givenNumber <= 0 || givenNumber > 6)
+                    {
+                        Console.WriteLine("Invalid number, give me another one");
+                        givenNumber = Convert.ToInt32(Console.Read());
+                    }
                     break;
 
             }
@@ -73,10 +98,10 @@
                 return "1";
                 
             case > 61 and < 85:
-                return "X";
+                return "    X";
                 
             case > 86 and < 100:
-                return "2";
+                return "        2";
         }
         return "";
     }
